@@ -1,24 +1,33 @@
-
 <div class="span12">
 	<div class="group pull-right">
+		<% if current_user && @group.editable_by?(current_user) %>
 		<%= link_to("Edit", edit_group_path(@group) , :class => "btn btn-mini ")%>
-		<%= link_to("New Post", new_group_post_path(@group) , :class => "btn btn-mini\
-		btn-primary")%>
+		<% end %>
+		<%if current_user %>
+		<%= link_to("New Post", new_group_post_path(@group) , :class => "btn btn-mini btn-primary" )%>
+		<% end %>
 		&nbsp;
 	</div>
 	<h2> <%= @group.title %> </h2>
 	<p> <%= @group.description %> </p>
 	<table class="table">
-
 		<tbody>
 			<% @posts.each do |post| %>
 			<tr>
-				<td> <%= post.content %> </td>
-				<td> <%= link_to("Edit", edit_group_post_path(post.group, post), :class => \
-				"btn btn-mini")%>
-				<%= link_to("Delete", group_post_path(post.group, post), :class => "btn btn-mini", :method => :delete, :confirm => "Are you sure?" ) %> </td>
-			</tr>
-			<% end %>
-		</tbody>
-	</table>
-</div>
+				<td>
+					<span class="author"> <strong> Author : <%= post.author.name %> </strong> 
+					</span>
+					<p>
+						<%= post.content %>
+					</p>
+				</td>
+				<% if current_user && post.editable_by?(current_user) %>
+				<td> <%= link_to("Edit", edit_group_post_path(post.group, post), :class => 
+					"btn btn-mini")%>
+					<%= link_to("Delete", group_post_path(post.group, post), :class => "btn btn-mini", :method => :delete, :confirm => "Are you sure?" ) %> </td>
+				</tr>
+				<% end %>
+				<% end %>
+			</tbody>
+		</table>
+	</div>

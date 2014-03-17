@@ -1,11 +1,11 @@
-<div>
+<div class="span12">
 	<%= simple_form_for [@group,@post] do |f| %>
-	<%= f.input :content, :input_html =>{:class => "input-xxlarge"}%>
+	<%= f.input :content, :input_html => {:class => "input-xxlarge"} %>
 	<div class = "form-actions">
 		<%= f.submit "Submit" ,:disable_with => "Submitting..." ,:input_html => {:class => "btn btn-primary"} %>
 
 	</div>
-	<%end %>
+	<% end %>
 
 
 </div>
