@@ -20,7 +20,6 @@ class PostsController < ApplicationController
 	end
 	def update
 		@post = @group.posts.find(params[:id])
-		33
 		if @post.update(post_params)
 			redirect_to group_path(@group)
 		else
