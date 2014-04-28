@@ -3,9 +3,19 @@
 		<% if current_user && @group.editable_by?(current_user) %>
 		<%= link_to("Edit", edit_group_path(@group) , :class => "btn btn-mini ")%>
 		<% end %>
-		<%if current_user %>
-		<%= link_to("New Post", new_group_post_path(@group) , :class => "btn btn-mini btn-primary" )%>
+
+		<%= link_to("New Post", new_group_post_path(@group) , :class => "btn btn-mini btn-primary") if current_user.is_member_of?(@group) %>
+
+		<% if current_user %>
+		<div class = "group pul-right">
+			<% if current_user.is_member_of?(@group) %>
+			<%= link_to("Quit Group", quit_group_path(@group) , :method => :post, :class => "btn btn-mini" )%>
+			<% else %>
+			<%= link_to("Join Group", join_group_path(@group) , :method => :post, :class => "btn btn-mini" )%>
+			<% end %>
+		</div>
 		<% end %>
+
 		&nbsp;
 	</div>
 	<h2> <%= @group.title %> </h2>
@@ -31,3 +41,4 @@
 			</tbody>
 		</table>
 	</div>
+</div>
